@@ -67,7 +67,7 @@ history = model.fit(x_train_flat, y_train, epochs=35)
 
 
 # model accuracy on test set with used parameters 
-# Model archteicture -> 784,25 -> 25,15 -> 15->10(0-9: 10 classes)
+# Model archteicture -> 784,40 -> 40,20 -> 20,10 (0-9: 10 classes)
 # epochs = 40
 
 l=0
