@@ -1,3 +1,5 @@
+#  Imports
+
 import tensorflow as tf
 import numpy as np
 import pandas as pd
@@ -7,21 +9,27 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
 
+# path to training and testing data
 train_images = 'mnist_ip_tf/train-images.idx3-ubyte'
 train_labels = 'mnist_ip_tf/train-labels.idx1-ubyte'
 test_images = 'mnist_ip_tf/t10k-images.idx3-ubyte'
 test_labels = 'mnist_ip_tf/t10k-labels.idx1-ubyte'
 
+# data loader
 dataset = mod1.MnistDataloader(train_images, train_labels, test_images, test_labels)
 (x_train, y_train), (x_test, y_test) = dataset.load_data()
 
-
+#  print statements to check if the data is loaded propperly
 print('x train shape = {}'.format(np.shape(x_train)))
 print('x test shape = {}'.format(np.shape(x_test)))
 print('y train shape = {}'.format(np.shape(y_train)))
 print('y test shape = {}'.format(np.shape(y_test)))
+# x train shape = (60000, 28, 28)
+# x test shape = (10000, 28, 28)
+# y train shape = (60000,)
+# y test shape = (10000,)
 
-# flattening the inputs
+# flattening the inputs 
 
 x_train_flat = np.reshape(x_train, (np.shape(x_train)[0], -1))
 x_test_flat = np.reshape(x_test, (np.shape(x_test)[0],-1))
@@ -36,18 +44,6 @@ print(np.shape(x_train_flat))
 # (60000,)
 print(np.shape(y_train))
 
-print(np.shape(x_test_flat[0])) 
-# exit()
-
-# normalizing inputs
-# x_train_flat = x_train_flat.astype(float)
-# x_train_flat = 1./255
-
-# x_test_flat = x_test_flat.astype(float)
-# x_test_flat = 1./255
-
-# print(dtype(x_train_flat))
-
 model = Sequential([
     
         tf.keras.Input(shape = (784,)),
@@ -59,9 +55,14 @@ model = Sequential([
 
 model.summary()
 model.compile(optimizer = tf.keras.optimizers.Adam(learning_rate = 0.001), loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True), metrics = ['accuracy'])
+
+
+# normalizing inputs and converting them to np.array so that it is acepted by the model
 x_train_flat = np.array(x_train_flat*1./255)
 y_train = np.array(y_train)
 x_test_flat = np.array(x_test_flat*1./255)
+
+
 history = model.fit(x_train_flat, y_train, epochs=35)
 
 
@@ -77,5 +78,7 @@ for i in range(len(x_test)):
    y_predd = np.argmax(y_pred)
    if y_predd!= y_test[i]:
       l+=1
-print (f"the model's accuracy on test data = {100. - (100.*l/10000)}%")
+
+# model accuracy calculated on 10000 test images (no cv) as the percentage of images classified correctly
+print (f" \n \n the model predicts the correct class for {100. - (100.*l/10000)}% of the 10000 test cases ")
 
