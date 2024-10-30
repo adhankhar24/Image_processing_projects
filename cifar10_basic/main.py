@@ -9,10 +9,4 @@ import pandas as pd
 import matplotlib.pyplot as plt
 ds = tfds.load('cifar10', split='train')
 
-# print(ds.shape())
-
-# print(ds[0].shape())
-
 print (ds)
-
-Whats up github!
