@@ -7,6 +7,15 @@ import tensorflow_datasets as tfds
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-ds = tfds.load('cifar10', split='train')
+ds_train = tfds.load('cifar10', split= 'train', as_supervised=True)
+ds_test = tfds.load('cifar10', split = 'test', as_supervised=True)
+print (ds_train)
 
-print (ds)
+
+ds_train_1 = ds_train.take(1)
+for image, label in tfds.as_numpy(ds_train_1):
+    print(type(image), type(label), label)
+    print(image)
+image_tr, label_tr = tfds.as_numpy(tfds.load('cifar10', split = 'train', as_supervised=True, batch_size=-1))
+
+print(type(image_tr), image_tr.shape)
