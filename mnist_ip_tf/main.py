@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import data_loader as mod1
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Sequential             # type: ignore
+from tensorflow.keras.layers import Dense                  # type: ignore
 
 
 # path to training and testing data
