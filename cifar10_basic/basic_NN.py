@@ -24,7 +24,7 @@ print(type(image_tr), image_tr.shape)
 print(type(image_te), image_te.shape)
 print(type(label_tr), label_tr.shape)
 print(label_tr[0])
-exit()
+# exit()
 
 model = Sequential([
     keras.Input(shape = (3072,)),
@@ -43,6 +43,7 @@ x_test = np.reshape(image_te, (np.shape(image_te)[0], -1))
 print(x_train.shape)
 print(x_train[0].shape)
 print(x_test.shape)
+
 
 x_train_nrm = np.array(x_train*1./255)
 x_test_nrm = np.array(x_test*1./255)
