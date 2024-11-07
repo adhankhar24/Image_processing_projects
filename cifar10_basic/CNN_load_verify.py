@@ -28,19 +28,19 @@ validation_pos = []
 validation_neg =[]
 neg = 0
 
-# for i in range(len(image_te)):
-#     y_pred = model_keras.call(image_te[i].reshape(1,sp[0],sp[1],sp[2]))
-#     y_pred = tf.nn.softmax(y_pred)
-#     pred = np.argmax(y_pred)
-#     if pred == label_te[i]:
-#         validation_pos.append(pred)
-#     else :
-#         validation_neg.append([pred,label_te[i]])
-#         neg+=1
-        # print(label_te[i])
-        # print (pred)
-        # print('#',i)
-# print(neg)
+for i in range(len(image_te)):
+    y_pred = model_keras.call(image_te[i].reshape(1,sp[0],sp[1],sp[2]))
+    y_pred = tf.nn.softmax(y_pred)
+    pred = np.argmax(y_pred)
+    if pred == label_te[i]:
+        validation_pos.append(pred)
+    else :
+        validation_neg.append([pred,label_te[i]])
+        neg+=1
+        print(label_te[i])
+        print (pred)
+        print('#',i)
+print('number of test samples misclassified: ', neg)
 model_h5 = tf.keras.models.load_model('cifar10_CNN_H5.h5')
 model_h5.summary()
 loss, acc = model_h5.evaluate(image_te, label_te, verbose=2)
